@@ -52,3 +52,17 @@ jobs:
       # TODO: solve flaky tests
       # - name: Test
       #   run: pnpm run test
+
+      - name: Deploy using ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          port: ${{ secrets.PORT }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          script: |
+            cd ~/home/git/deployment-test
+            git pull origin master
+            git status
+            pnpm install --only=prod
+            pm2 restart node1      
