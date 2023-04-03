@@ -4,12 +4,35 @@
 
 name: Deploy
 on:
+  workflow_dispatch:
   push:
     branches:
-      - dev
+      - main
+    paths:
+      - '.changeset/**'
+      - 'packages/**'
+      - '!examples/**'
+      - '!.github/**'
+      - '!.husky/**'
+      - '!.vscode/**'
+      - '!**/README.md'
+      - '!**/CHANGELOG.md'
+      - '!**/LICENSE'
+      - '!packages/**/__tests__/**'
   pull_request:
     branches:
       - main
+    paths:
+      - '.changeset/**'
+      - 'packages/**'
+      - '!examples/**'
+      - '!.github/**'
+      - '!.husky/**'
+      - '!.vscode/**'
+      - '!**/README.md'
+      - '!**/CHANGELOG.md'
+      - '!**/LICENSE'
+      - '!packages/**/__tests__/**'
 env:
   TZ: "America/New_York"
 

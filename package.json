@@ -12,6 +12,7 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "prettier:check": "prettier --check .",
     "ncu": "ncu -u --deep -x rimraf",
     "clean:all": "rimraf ./**/turbo-build.log ./**/dist ./**/.pnpm-debug.log ./**/.turbo ./**/coverage ./**/pnpm-lock.yaml ./**/node_modules"
   },

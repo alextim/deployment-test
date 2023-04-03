@@ -1,25 +1,25 @@
-import http from "node:http";
+import http from 'node:http';
 
 const prefix = '/backend';
 const port = 3000;
-const host = "127.0.0.1";
+const host = '127.0.0.1';
 
 const server = http.createServer((req, res) => {
   const urlPath = req.url;
   console.log(urlPath);
-  res.writeHead(200, { "Content-Type": "application/json" });
+  res.writeHead(200, { 'Content-Type': 'application/json' });
   if (urlPath === `${prefix}/health`) {
     res.end(
       JSON.stringify({
-      uptime: process.uptime(),
-      timestamp: Date.now(),
-      })
+        uptime: process.uptime(),
+        timestamp: Date.now(),
+      }),
     );
   } else {
     res.end(
       JSON.stringify({
         url: urlPath,
-      })
+      }),
     );
   }
 });

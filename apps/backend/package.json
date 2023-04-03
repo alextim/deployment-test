@@ -8,17 +8,22 @@
   "scripts": {
     "start": "node dist/server.js",
     "build": "tsc",
-    "lint": "eslint ./src"
+    "lint": "eslint --ext .ts src/"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.21.4",
-    "eslint-config-node18": "workspace:*",
-    "eslint": "8.37.0",
-    "tsconfig": "workspace:*",
     "@types/node": "^18.15.11",
+    "@typescript-eslint/eslint-plugin": "^5.57.0",
+    "@typescript-eslint/parser": "^5.57.0",
+    "eslint": "8.37.0",
+    "eslint-config-node18": "workspace:*",
+    "eslint-import-resolver-typescript": "^3.5.4",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "tsconfig": "workspace:*",
     "typescript": "^5.0.3"
-  }  
+  }
 }

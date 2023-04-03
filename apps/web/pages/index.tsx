@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Button } from "ui";
+import { useEffect, useState } from 'react';
+import { Button } from 'ui';
 
 type ApiData = {
   uptime?: number;
@@ -36,7 +36,7 @@ export default function Web() {
   if (error) {
     return <div>{error}</div>;
   }
-  
+
   return (
     <div>
       <h1>Web</h1>
@@ -56,7 +56,7 @@ export default function Web() {
         <div>
           <span>url:</span>
           <span>data.url</span>
-        </div>      
+        </div>
       )}
       <Button />
     </div>
