@@ -89,4 +89,4 @@ jobs:
             git status
             pnpm install
             pnpm build
-            pm2 restart node1
+            pm2 restart server
