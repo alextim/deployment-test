@@ -1,5 +1,5 @@
 {
-  "name": "deoloyment-test",
+  "name": "deployment-test",
   "version": "0.0.0",
   "private": true,
   "workspaces": [
@@ -8,13 +8,17 @@
   ],
   "scripts": {
     "build": "turbo run build",
+    "start": "pnpm --filter backend start",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "ncu": "ncu -u --deep -x rimraf",
+    "clean:all": "rimraf ./**/turbo-build.log ./**/dist ./**/.pnpm-debug.log ./**/.turbo ./**/coverage ./**/pnpm-lock.yaml ./**/node_modules"
   },
   "devDependencies": {
     "eslint-config-custom": "workspace:*",
     "prettier": "latest",
+    "rimraf": "3.0.2",    
     "turbo": "latest"
   },
   "engines": {
