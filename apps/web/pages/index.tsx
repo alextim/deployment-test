@@ -14,7 +14,7 @@ export default function Web() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const res = await fetch('https://nelgroup.biz/backend/health');
+        const res = await fetch('https://api.nelgroup.biz/health');
         if (!res.ok) {
           throw new Error(`Error: ${res.status} ${res.statusText}`);
         }

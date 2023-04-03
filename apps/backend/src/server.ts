@@ -1,6 +1,6 @@
 import http from 'node:http';
 
-const prefix = '/backend';
+const prefix = '';
 const port = 3000;
 const host = '127.0.0.1';
 

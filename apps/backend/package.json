@@ -16,8 +16,8 @@
   "devDependencies": {
     "@babel/core": "^7.21.4",
     "@types/node": "^18.15.11",
-    "@typescript-eslint/eslint-plugin": "^5.57.0",
-    "@typescript-eslint/parser": "^5.57.0",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
     "eslint": "8.37.0",
     "eslint-config-node18": "workspace:*",
     "eslint-import-resolver-typescript": "^3.5.4",
