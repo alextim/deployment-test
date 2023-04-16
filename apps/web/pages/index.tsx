@@ -10,7 +10,7 @@ type ApiData = {
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Web() {
-  const { data, error, isLoading } = useSWR<ApiData>('https://api.nelgroup.biz/health', fetcher)
+  const { data, error, isLoading } = useSWR<ApiData>('/api/health', fetcher)
 
   if (isLoading) {
     return <div>Loading...</div>;
