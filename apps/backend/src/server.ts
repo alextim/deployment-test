@@ -1,7 +1,7 @@
 import http from 'node:http';
 
 const prefix = '';
-const port = 3000;
+const port = 3001;
 const host = '127.0.0.1';
 
 const server = http.createServer((req, res) => {
