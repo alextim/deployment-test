@@ -71,3 +71,17 @@ Learn more about the power of Turborepo:
 - [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
 - [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
 - [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+
+
+# for development
+pm2 start npm --name "next" -- run dev
+
+# for production
+npm run build
+pm2 start npm --name "nextjs" -- start
+
+pm2 startup
+pm2 save
+
+
+pm2 start npm --name name_of_the_app -- start --port your_port
