@@ -129,3 +129,17 @@ sudo npm i -g pm2
 sudo pm2 startup
 sudo pm2 start ~var/www/node-test/server.js
 sudo pm2 save
+
+; ----------
+; Install PHP-FPM
+; ---------
+sudo apt install php-fpm php-cli php-curl php-mysql php-curl php-gd php-mbstring php-pear -y
+
+cd /etc/php/7.4/fpm/
+vim php.ini
+
+cgi.fix_pathinfo = 0
+
+systemctl start php7.4-fpm
+systemctl enable php7.4-fpm
+systemctl status php7.4-fpm

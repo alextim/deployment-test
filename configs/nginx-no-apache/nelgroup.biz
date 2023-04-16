@@ -1,0 +1,58 @@
+server { 
+	root /var/www/ccstandalone1/html;
+  
+  charset utf-8;
+
+	server_name nelgroup.biz www.nelgroup.biz;
+
+  index index.php index.html index.htm;
+
+  # listen [::]:443 ssl ipv6only=on; # managed by Certbot http2
+  listen 443 ssl; # managed by Certbot http2
+  
+  ssl_certificate /etc/letsencrypt/live/nelgroup.biz/fullchain.pem; # managed by Certbot
+  ssl_certificate_key /etc/letsencrypt/live/nelgroup.biz/privkey.pem; # managed by Certbot
+  
+  include snippets/ssl.conf;
+  
+  include snippets/helmet.conf;
+  include snippets/csp.conf;
+  include snippets/general.conf;
+  include snippets/restrictions.conf;
+  include snippets/allowed-methods.conf;
+  
+  include snippets/cors.conf;
+  
+  location / {
+    try_files $uri $uri/ /index.php$is_args$args;
+  }
+
+  location ~ \.php$ {
+    include snippets/fastcgi-php.conf;
+    fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+  }
+  
+  error_page 404 /index.php;
+  
+  # deny access to hidden files such as .htaccess
+  location ~ /\. {
+    deny all;
+  }
+}
+
+server {
+	listen 80;
+	# listen [::]:80;
+
+	server_name nelgroup.biz www.nelgroup.biz;
+
+  if ($host = www.nelgroup.biz) {
+      return 301 https://$host$request_uri;
+  } # managed by Certbot
+
+  if ($host = nelgroup.biz) {
+      return 301 https://$host$request_uri;
+  } # managed by Certbot
+
+  return 404; # managed by Certbot
+}

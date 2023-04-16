@@ -1,0 +1,67 @@
+server { 
+	root /var/www/ccstandalone1/html;
+  
+  charset utf-8;
+
+	server_name nelgroup.biz www.nelgroup.biz;
+
+  index index.php index.html index.htm;
+  autoindex off;
+
+  # listen [::]:443 ssl ipv6only=on; # managed by Certbot http2
+  listen 443 ssl; # managed by Certbot http2
+  
+  ssl_certificate /etc/letsencrypt/live/nelgroup.biz/fullchain.pem; # managed by Certbot
+  ssl_certificate_key /etc/letsencrypt/live/nelgroup.biz/privkey.pem; # managed by Certbot
+  
+  include snippets/ssl.conf;
+  
+  include snippets/helmet.conf;
+  include snippets/csp.conf;
+  include snippets/general.conf;
+  include snippets/restrictions.conf;
+  include snippets/allowed-methods.conf;
+  
+  include snippets/cors.conf;
+  
+  location / {
+    proxy_pass http://apache24;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    
+    #
+    # apache "mod_rpaf" which rewrites the values of REMOTE_ADDR, HTTPS and HTTP_PORT 
+    # based on the values provided by a reverse proxy.
+    #
+    # proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    #
+    proxy_set_header X-Forwarded-For $remote_addr;
+    
+    proxy_set_header X-Forwarded-Proto $scheme;
+    
+    proxy_connect_timeout 120;
+    proxy_send_timeout 120;
+    proxy_read_timeout 180;
+    
+    #client_max_body_size       10m;
+    #client_body_buffer_size    128k;
+    proxy_max_temp_file_size 2048m;
+  }
+}
+
+server {
+	listen 80;
+	# listen [::]:80;
+
+	server_name nelgroup.biz www.nelgroup.biz;
+
+  if ($host = www.nelgroup.biz) {
+      return 301 https://$host$request_uri;
+  } # managed by Certbot
+
+  if ($host = nelgroup.biz) {
+      return 301 https://$host$request_uri;
+  } # managed by Certbot
+
+  return 404; # managed by Certbot
+}
