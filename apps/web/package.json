@@ -13,16 +13,17 @@
     "next": "^13.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "swr": "^2.1.3",
     "ui": "workspace:*"
   },
   "devDependencies": {
     "@babel/core": "^7.21.4",
-    "eslint-config-custom": "workspace:*",
-    "eslint": "8.38.0",
-    "tsconfig": "workspace:*",
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.35",
     "@types/react-dom": "^18.0.11",
+    "eslint": "8.38.0",
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
     "typescript": "^5.0.4"
   }
 }

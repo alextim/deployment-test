@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import useSWR from 'swr';
 import { Button } from 'ui';
 
 type ApiData = {
@@ -7,34 +7,16 @@ type ApiData = {
   url?: string;
 };
 
-export default function Web() {
-  const [data, setData] = useState<ApiData | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>('');
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const res = await fetch('https://api.nelgroup.biz/health');
-        if (!res.ok) {
-          throw new Error(`Error: ${res.status} ${res.statusText}`);
-        }
-        const json = await res.json();
-        setData(json);
-      } catch (err) {
-        setError((err as Error).toString());
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadData();
-  }, []);
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-  if (loading) {
+export default function Web() {
+  const { data, error, isLoading } = useSWR('https://api.nelgroup.biz/health', fetcher)
+
+  if (isLoading) {
     return <div>Loading...</div>;
   }
   if (error) {
-    return <div>{error}</div>;
+    return <div>{error.toString()}</div>;
   }
 
   return (
