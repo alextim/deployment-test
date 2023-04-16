@@ -74,11 +74,12 @@ Learn more about the power of Turborepo:
 
 
 # for development
-pm2 start npm --name "next" -- run dev
+pm2 start pnpm --name "nextjs" -- run dev
 
 # for production
 npm run build
-pm2 start npm --name "nextjs" -- start
+pm2 start pnpm --name "nextjs" -- start
+pm2 start pnpm --name "api" -- start
 
 pm2 startup
 pm2 save

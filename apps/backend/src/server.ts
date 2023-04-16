@@ -7,7 +7,10 @@ const host = '127.0.0.1';
 const server = http.createServer((req, res) => {
   const urlPath = req.url;
   console.log(urlPath);
-  res.writeHead(200, { 'Content-Type': 'application/json' });
+  res.writeHead(200, {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  });
   if (urlPath === `${prefix}/health`) {
     res.end(
       JSON.stringify({
