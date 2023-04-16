@@ -18,7 +18,6 @@ export default function Web() {
   if (error) {
     return <div>{error.toString()}</div>;
   }
-  console.log(data)
 
   return (
     <div>

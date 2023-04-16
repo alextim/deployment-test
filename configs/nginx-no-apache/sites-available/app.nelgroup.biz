@@ -1,0 +1,71 @@
+server { 
+  charset utf-8;
+
+	server_name app.nelgroup.biz;
+
+  # listen [::]:443 ssl ipv6only=on; # managed by Certbot http2
+  listen 443 ssl; # managed by Certbot http2
+  ssl_certificate /etc/letsencrypt/live/app.nelgroup.biz/fullchain.pem; # managed by Certbot
+  ssl_certificate_key /etc/letsencrypt/live/app.nelgroup.biz/privkey.pem; # managed by Certbot
+  
+  include snippets/ssl.conf;
+  
+  include snippets/helmet.conf;
+  include snippets/csp.conf;
+  include snippets/general.conf;
+  include snippets/restrictions.conf;
+  include snippets/allowed-methods.conf;
+  include snippets/cors.conf;
+
+  index index.html;
+  
+  
+  location / {
+    # reverse proxy for next server
+    proxy_pass http://localhost:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+  
+    # we need to remove this 404 handling
+    # because next's _next folder and own handling
+    # try_files $uri $uri/ =404;
+  }
+  
+   
+  location ^~ /_next/static/ {
+    alias /home/git/deployment-test/apps/web/.next/static/;
+    
+    add_header Cache-Control "public, max-age=3600, immutable";
+    access_log off;
+    log_not_found off;
+    expires max;
+  }
+  
+  #location /_next/static/ {  
+  #  alias /home/git/deployment-test/apps/web/.next/static/;
+  #  try_files $uri =404;
+  #}
+  
+  location ~ /.well-known {
+    allow all;
+  }
+
+}
+
+server {
+	listen 80;
+	# listen [::]:80;
+
+	server_name app.nelgroup.biz;
+
+  if ($host = app.nelgroup.biz) {
+      return 301 https://$host$request_uri;
+  } # managed by Certbot
+
+  return 404; # managed by Certbot
+}
+
+

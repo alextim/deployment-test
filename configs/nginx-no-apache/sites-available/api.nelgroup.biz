@@ -1,0 +1,72 @@
+server { 
+  charset utf-8;
+
+	server_name api.nelgroup.biz;
+
+  # listen [::]:443 ssl ipv6only=on; # managed by Certbot http2
+  listen 443 ssl; # managed by Certbot http2
+  
+  ssl_certificate /etc/letsencrypt/live/api.nelgroup.biz/fullchain.pem; # managed by Certbot
+  ssl_certificate_key /etc/letsencrypt/live/api.nelgroup.biz/privkey.pem; # managed by Certbot
+  
+  include snippets/ssl.conf;
+  
+  include snippets/helmet.conf;
+  
+  include snippets/general.conf;
+  include snippets/restrictions.conf;
+  include snippets/allowed-methods.conf;
+  
+  include snippets/cors.conf;
+
+  add_header 'Content-Security-Policy' "default-src 'none'";
+  
+  location / {
+    proxy_pass http://localhost:3001;
+
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-Host $server_name;
+    # This is what tells Connect that your session can be considered secure, 
+    # even though the protocol node.js sees is only HTTP:        
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+    
+    proxy_connect_timeout 120;
+    proxy_send_timeout 120;
+    proxy_read_timeout 180;
+    
+    proxy_max_temp_file_size 2048m;
+    
+    # Following is necessary for Websocket support
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_cache_bypass $http_upgrade;   
+
+    proxy_set_header Connection "upgrade"; 
+    # proxy_set_header "Connection" "";
+    # proxy_set_header   Connection keep-alive;
+
+    proxy_redirect off;
+    
+    # Express
+    #proxy_hide_header X-powered-by;
+    #proxy_hide_header X-Runtime;
+  }
+
+}
+
+server {
+	listen 80;
+	# listen [::]:80;
+
+	server_name api.nelgroup.biz;
+
+  if ($host = api.nelgroup.biz) {
+      return 301 https://$host$request_uri;
+  } # managed by Certbot
+
+  return 404; # managed by Certbot
+}
+
