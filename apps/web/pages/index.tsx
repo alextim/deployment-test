@@ -10,7 +10,7 @@ type ApiData = {
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Web() {
-  const { data, error, isLoading } = useSWR('https://api.nelgroup.biz/health', fetcher)
+  const { data, error, isLoading } = useSWR<ApiData>('https://api.nelgroup.biz/health', fetcher)
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -18,6 +18,7 @@ export default function Web() {
   if (error) {
     return <div>{error.toString()}</div>;
   }
+  console.log(data)
 
   return (
     <div>
@@ -25,19 +26,19 @@ export default function Web() {
       {data?.uptime && (
         <div>
           <span>uptime:</span>
-          <span>data.uptime</span>
+          <span>{data.uptime}</span>
         </div>
       )}
       {data?.timestamp && (
         <div>
           <span>timestamp:</span>
-          <span>data.timestamp</span>
+          <span>{data.timestamp}</span>
         </div>
       )}
       {data?.url && (
         <div>
           <span>url:</span>
-          <span>data.url</span>
+          <span>{data.url}</span>
         </div>
       )}
       <Button />
