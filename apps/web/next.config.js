@@ -1,7 +1,7 @@
 module.exports = {
   reactStrictMode: true,
   transpilePackages: ["ui"],
-
+/*
   async headers() {
     return [
       {
@@ -13,4 +13,5 @@ module.exports = {
       },
     ];
   },
+  */
 };
