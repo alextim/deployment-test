@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - '.changeset/**'
+      - 'apps/**'
       - 'packages/**'
       - '!examples/**'
       - '!.github/**'
@@ -20,6 +21,7 @@ on:
       - main
     paths:
       - '.changeset/**'
+      - 'apps/**'
       - 'packages/**'
       - '!examples/**'
       - '!.github/**'
