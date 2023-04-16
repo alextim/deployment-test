@@ -9,7 +9,7 @@ const server = http.createServer((req, res) => {
   console.log(urlPath);
   res.writeHead(200, {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': 'https://app.nelgroup.biz',
   });
   if (urlPath === `${prefix}/health`) {
     res.end(

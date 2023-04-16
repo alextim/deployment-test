@@ -78,8 +78,8 @@ pm2 start pnpm --name "nextjs" -- run dev
 
 # for production
 npm run build
-pm2 start pnpm --name "nextjs" -- start
-pm2 start pnpm --name "api" -- start
+pm2 start pnpm --name "nextjs" -- start --port 3000
+pm2 start pnpm --name "api" -- start --port 3001
 
 pm2 startup
 pm2 save
