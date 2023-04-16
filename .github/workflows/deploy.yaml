@@ -92,6 +92,6 @@ jobs:
             pnpm prune
             pnpm install
             pnpm run build
-            pm2 restart server
+            pm2 restart api
             pm2 restart nextjs
             pm2 reload all
